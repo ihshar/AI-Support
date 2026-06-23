@@ -6,13 +6,18 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn,isLoaded } = useUser();
   const router = useRouter()
+
   useEffect(()=>{
     if(isSignedIn){
-      router.push('/chat')
+      router.replace('/chat')
     }
-  },[])
+  },[isSignedIn,isLoaded,router])
+
+   if (!isLoaded || isSignedIn) {
+    return null;
+  }
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -31,7 +36,7 @@ export default function Page() {
           ideas, and problem solving.
         </p>
 
-        <SignInButton mode="modal" forceRedirectUrl="/chat">
+        <SignInButton mode="modal" forceRedirectUrl="/chat" signUpForceRedirectUrl="/chat">
           <Button
             className="mt-10 h-11 rounded-lg bg-white px-6 text-black hover:bg-neutral-200"
           >
