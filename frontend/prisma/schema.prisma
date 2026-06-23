@@ -14,11 +14,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Conversation {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   title     String
-  createdAt DateTime  @default(now())
-  messages  Message[]
+  createdAt DateTime @default(now())
+
+  userId   String
+  messages Message[]
 }
 
 model Message {

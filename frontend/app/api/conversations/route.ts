@@ -1,25 +1,43 @@
-import { openrouter } from "@/lib/openrouter";
+import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(){
-    const conversation = await prisma.conversation.findMany(
-        {
-            include:{
-                messages:true
-            }
-        }
-    )
+    const { userId } = await auth();
 
-    return NextResponse.json(conversation)
+  if (!userId) {
+    return Response.json([]);
+  }
+
+  const conversations = await prisma.conversation.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      messages: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+    return NextResponse.json(conversations)
 }
 
 export async function POST() {
+  const {userId} = await auth()
+   if (!userId) {
+    return NextResponse.json(
+      { error: "Unauthorized" },
+      { status: 401 }
+    );
+  }
   const conversation =
     await prisma.conversation.create({
       data: {
-        title: "New Chat"
-      }
+        title: "New Chat",
+        userId,
+      },
     });
 
   return NextResponse.json(conversation);

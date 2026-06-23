@@ -1,12 +1,12 @@
 export type Message = {
     id:string,
     role: "user" | "assistant",
-    content:string
+    content:string,
     createdAt:string
 }
 
 export type ChatPropMessage = {
-    messages:Message[]
+    messages:Message[],
     loading:boolean
 }
 
@@ -14,9 +14,10 @@ export type ChatPropMessage = {
 export type ChatInputProps = {
     handleSend:()=>void,
     input:string,
-    setInput:Function
-    handleClear:()=>void
-    newChat:()=>void
+    setInput:Function,
+    handleClear:()=>void,
+    newChat:()=>void,
+    isSignedIn?: boolean,
 }
 
 export type Conversation = {
@@ -35,5 +36,6 @@ export type ConversationListProps = {
     conversations:Conversation[],
     setCurrentConversationId:(id:string)=>void,
     setConversations:Function,
-    newChat:()=>void
+    newChat:()=>void,
+    isSignedIn?:boolean
 }
