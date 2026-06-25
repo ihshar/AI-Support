@@ -5,7 +5,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function ChatMessages({ messages, loading }: ChatPropMessage) {
   return (
-    <div className="flex-1 rounded-lg p-4 overflow-y-auto">
+    <div className="flex-1 rounded-lg overflow-y-auto">
       {messages.length === 0 ? (
         <p className="text-muted-foreground">Start a conversation...</p>
       ) : (
@@ -17,7 +17,7 @@ function ChatMessages({ messages, loading }: ChatPropMessage) {
                 message.role === "user" ? "text-right" : "text-left"
               }`}
             >
-              <div className="inline-block max-w-3xl rounded-lg bg-secondary px-4 py-2">
+              <div className="inline-block md:max-w-3xl rounded-lg bg-secondary px-4 py-2 max-w-80">
                 {
                   <Markdown
                     components={{
@@ -34,10 +34,11 @@ function ChatMessages({ messages, loading }: ChatPropMessage) {
                                   String(children).replace(/\n$/, ""),
                                 )
                               }
-                              className="absolute top-2 right-2 text-xs px-2 py-1 rounded bg-zinc-700text-white"
+                              className="absolute right-3 top-3 rounded-md bg-zinc-800 px-2 py-1 text-xs text-white hover:bg-zinc-700"
                             >
                               Copy
                             </button>
+                            <div className="mt-4 overflow-x-auto rounded-xl">
                             <SyntaxHighlighter
                               style={oneDark}
                               language={match[1]}
@@ -49,6 +50,7 @@ function ChatMessages({ messages, loading }: ChatPropMessage) {
                             >
                               {String(children).replace(/\n$/, "")}
                             </SyntaxHighlighter>
+                            </div>
                           </div>
                         ) : (
                           <code className={className}>{children}</code>

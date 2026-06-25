@@ -4,7 +4,7 @@ import { Message } from "@/types/chat";
 import ChatMessages from "@/components/ChatMessages";
 import ChatInput from "@/components/ChatInput";
 import { Conversation } from "@/types/chat";
-import ConversationList from "@/components/ConversationList";
+import ConversationList from "@/components/ConversationList"; 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -313,7 +313,7 @@ export default function Page() {
             Clear Chat
           </Button>
         </div>
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto">
           {(activeConversations?.messages?.length ?? 0) === 0 ? (
             <div className="h-full flex items-center justify-center">
               <div className="text-center">
@@ -327,8 +327,8 @@ export default function Page() {
               </div>
             </div>
           ) : (
-            <div className="flex-1 overflow-y-auto p-6">
-              <div className="max-w-4xl mx-auto px-4 md:px-6 py-4">
+            <div className="flex-1 overflow-y-auto">
+              <div className="max-w-4xl mx-auto px-4 md:px-6">
                 <ChatMessages
                   loading={loading}
                   messages={activeConversations?.messages ?? []}
